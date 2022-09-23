@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Firebase Database</title>
+
+    </head>
+
+    <body>
+
+        <input type="text" id="name">
+        <input type="text" id="age">
+        <input type="submit" id='submitData' value="Add to Database">
+
+
+    </body>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+        import { getDatabase, ref, set, onValue, update } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCyfWY5b1e6XYK6nZk62DypwaGTaZHIpOo",
+            authDomain: "js-db-aecad.firebaseapp.com",
+            databaseURL: "https://js-db-aecad-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "js-db-aecad",
+            storageBucket: "js-db-aecad.appspot.com",
+            messagingSenderId: "66038379283",
+            appId: "1:66038379283:web:52158c686c3ef5ce86a0e6"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app)
+
+        submitData.addEventListener('click', (e) => {
+            var name = document.getElementById('name').value;
+            var age = document.getElementById('age').value;
+
+            set(ref(database, 'users/' + name), {
+                name: name,
+                age: age
+            }).then(() => {
+                alert('data submitted');
+            })
+                .catch((error) => {
+                    alert(error);
+                });
+        });
+    </script>
+
+</html>
